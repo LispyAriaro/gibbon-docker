@@ -27,6 +27,11 @@ use Gibbon\Install\Installer;
 use Gibbon\Http\Url;
 
 include '../version.php';
+$systemRequirements['extensions'] = ['gettext', 'mbstring', 'curl', 'zip', 'xml', 'gd', 'intl'];
+
+// Remove 'intl'
+$systemRequirements['extensions'] = ['gettext', 'mbstring', 'curl', 'zip', 'xml', 'gd'];
+
 
 // For offline installer
 $_SERVER['PHP_SELF'] = 'installer/install.php';
@@ -43,7 +48,7 @@ $_POST = $validator->sanitize($_POST);
 
 // Fix missing locale causing failed page load
 if (empty($gibbon->locale->getLocale())) {
-    $gibbon->locale->setLocale('es_MX');
+  $gibbon->locale->setLocale('es_MX');
 }
 
 $guid = Installer::randomGuid();
@@ -55,15 +60,15 @@ $session->set('stringReplacement', []); // Deal with non-existent stringReplacem
 
 // Page object for rendering
 $page = new Page($container, [
-    'title'   => __('Gibbon Installer'),
-    'address' => '/installer/install.php',
+  'title' => __('Gibbon Installer'),
+  'address' => '/installer/install.php',
 ]);
 
 // Create a controller instance.
 $controller = InstallController::create(
-    $container,
-    $session,
-    $page
+  $container,
+  $session,
+  $page
 );
 
 // Generate installer object.
@@ -72,7 +77,7 @@ $installer = new Installer($container->get('twig'));
 
 // Generate installation context from the environment.
 $context = (Context::fromEnvironment())
-    ->setInstallPath(dirname(__DIR__));
+  ->setInstallPath(dirname(__DIR__));
 
 ob_start();
 
@@ -81,9 +86,9 @@ $locale_code = 'es_MX';
 
 //Set language pre-install
 if (function_exists('gettext')) {
-    $gibbon->locale->setLocale($locale_code);
-    bindtextdomain('gibbon', '../i18n');
-    textdomain('gibbon');
+  $gibbon->locale->setLocale($locale_code);
+  bindtextdomain('gibbon', '../i18n');
+  textdomain('gibbon');
 }
 
 // Prevent memory or time limit issues.
@@ -171,13 +176,13 @@ echo "Parse all submitted settings and store to Gibbon database.";
 $settingsFail = false;
 $settings = InstallController::parsePostInstallSettings($user_data);
 foreach ($settings as $scope => $scopeSettings) {
-    foreach ($scopeSettings as $key => $value) {
-        $settingsFail = !$installer->setSetting($key, $value, $scope) || $settingsFail;
-    }
+  foreach ($scopeSettings as $key => $value) {
+    $settingsFail = !$installer->setSetting($key, $value, $scope) || $settingsFail;
+  }
 }
 
 if ($settingsFail) {
-    echo('Installer: settings failed. Will trigger RecoverableException.');
+  echo ('Installer: settings failed. Will trigger RecoverableException.');
 } else {
-    echo('Installer Finished!!!');
+  echo ('Installer Finished!!!');
 }
