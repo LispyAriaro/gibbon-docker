@@ -5,32 +5,21 @@ services:
       context: .
     container_name: gibbon
     environment:
-      GIBBON_AUTOINSTALL: 1
+      GIBBON_AUTOINSTALL: 0
       DB_HOST: db
-      DB_NAME: gibbon
-      DB_USER: gibbon
-      DB_PASSWORD: gibbonpass
-      GIBBON_USERNAME: admin
-      GIBBON_PASSWORD: Admin123
-      GIBBON_EMAIL: admin@admin.com
-      GIBBON_URL: http://localhost:8080
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      GIBBON_USERNAME: ${GIBBON_USERNAME}
+      GIBBON_PASSWORD: ${GIBBON_PASSWORD}
+      GIBBON_EMAIL: efeariaroo@gmail.com
+      GIBBON_URL: ${GIBBON_URL}
+      GIBBON_SYSTEM_NAME: Gibbon_EfeAriaroo
+      GIBBON_INSTALL_TYPE: Production
+      GIBBON_TIMEZONE: Africa/Lagos
+      GIBBON_COUNTRY: Nigeria
+      GIBBON_CURRENCY: NGN
+      GIBBON_ORGANISATION_NAME: WINEPPES PRIVATE SCHOOL
+      GIBBON_ORGANISATION_INITIALS: W.E.P.S
     ports:
-      - 8080:80
-    depends_on:
-      - "db"
-  db:
-    image: mysql:5.7
-    container_name: mysql
-    environment:
-      MYSQL_DATABASE: gibbon
-      MYSQL_USER: gibbon
-      MYSQL_PASSWORD: gibbonpass
-      MYSQL_ROOT_PASSWORD: gibbonroot
-    ports:
-      - '3306:3306'
-    expose:
-      - '3306'
-    volumes:
-      - gibbon_db:/var/lib/mysql
-volumes:
-  gibbon_db:
+      - 80:80
