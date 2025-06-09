@@ -10,7 +10,7 @@ RUN apt-get update && apt-get -y upgrade && \
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions && \
-  install-php-extensions pdo_mysql gd opcache zip gettext
+  install-php-extensions pdo_mysql gd opcache zip gettext intl
 
 ADD https://github.com/GibbonEdu/core/releases/download/v${VERSION}/GibbonEduCore-InstallBundle.tar.gz . 
 RUN tar -xzf GibbonEduCore-InstallBundle.tar.gz && \
@@ -35,7 +35,7 @@ RUN echo 'Header set X-Content-Type-Options: "nosniff"' >> /etc/apache2/conf-ena
 RUN echo 'Header set X-Frame-Options: "sameorigin"' >> /etc/apache2/conf-enabled/security.conf
 RUN echo 'Header set X-XSS-Protection "1; mode=block"' >> /etc/apache2/conf-enabled/security.conf
 
-
+# RUN docker-php-ext-install intl
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 RUN printf "expose_php=Off\nupload_max_filesize = 20M\npost_max_size = 20M\nmemory_limit = 512M\nmax_input_vars=4000" >> "$PHP_INI_DIR/php.ini"
