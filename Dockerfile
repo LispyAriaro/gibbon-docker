@@ -34,6 +34,7 @@ RUN echo "ServerSignature Off\n" >> /etc/apache2/apache2.conf
 RUN echo 'Header set X-Content-Type-Options: "nosniff"' >> /etc/apache2/conf-enabled/security.conf
 RUN echo 'Header set X-Frame-Options: "sameorigin"' >> /etc/apache2/conf-enabled/security.conf
 RUN echo 'Header set X-XSS-Protection "1; mode=block"' >> /etc/apache2/conf-enabled/security.conf
+RUN echo 'Header set Content-Security-Policy "upgrade-insecure-requests"' >> /etc/apache2/conf-enabled/security.conf
 
 # RUN docker-php-ext-install intl
 

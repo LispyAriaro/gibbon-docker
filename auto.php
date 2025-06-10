@@ -27,10 +27,10 @@ use Gibbon\Install\Installer;
 use Gibbon\Http\Url;
 
 include '../version.php';
-$systemRequirements['extensions'] = ['gettext', 'mbstring', 'curl', 'zip', 'xml', 'gd', 'intl'];
 
-// Remove 'intl'
-$systemRequirements['extensions'] = ['gettext', 'mbstring', 'curl', 'zip', 'xml', 'gd'];
+// $systemRequirements['extensions'] = ['gettext', 'mbstring', 'curl', 'zip', 'xml', 'gd', 'intl'];
+// // Remove 'intl'. Does not work
+// $systemRequirements['extensions'] = ['gettext', 'mbstring', 'curl', 'zip', 'xml', 'gd'];
 
 
 // For offline installer
